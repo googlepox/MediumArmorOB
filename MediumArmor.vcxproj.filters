@@ -15,6 +15,9 @@
     <ClCompile Include="..\xOBSE\obse\obse_common\SafeWrite.cpp">
       <Filter>obse</Filter>
     </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="exports.def" />

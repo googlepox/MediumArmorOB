@@ -166,9 +166,6 @@ namespace MediumArmor
                 result *= kPerkMasterARBonus;
         }
 
-        _MESSAGE("MediumArmor AR (combat): baseAR=%u skill=%.1f luck=%.1f cond=%.3f -> %.1f",
-            baseAR, skill, luck, condition, result);
-
         float fresult = static_cast<float>(result);
         float truncated = static_cast<float>(static_cast<int>(fresult));
         if (truncated - fresult < 0.0f)

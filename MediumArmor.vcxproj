@@ -113,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="..\xOBSE\obse\obse_common\SafeWrite.cpp" />
     <ClCompile Include="Commands.cpp" />
+    <ClCompile Include="Config.cpp" />
     <ClCompile Include="dllmain.c">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ForcedIncludeFiles>

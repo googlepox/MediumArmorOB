@@ -26,16 +26,6 @@ namespace MediumArmor
     // ── Internal state ─────────────────────────────────────────────────────────
     TESGlobal* g_mediumArmorGlobal;
     TESGlobal* g_mediumArmorXPGlobal;
-    static float MA_SKILL_START = 5.0f;
-    std::vector<std::string> MA_MATERIALS = { "medium", "mithril", "dragonscale", 
-        "bonemold", "orcish", "chainmail", "ordinator", "dreugh", "maomer", 
-        "maormer", "leatherhard", "brass", "bronze", "adamantium", "jade",
-        "indoril", "trollbone", "netchad"};
-
-    std::unordered_map<std::string, float*> configMap =
-    {
-        { "MA_SKILL_START",   &MA_SKILL_START },
-    };
 
     // ════════════════════════════════════════════════════════════════════════════
     //  Keyword interface
@@ -94,12 +84,12 @@ namespace MediumArmor
 
     float GetMediumArmorSkill()
     {
-        return MA_SKILL_START;
+        return kMediumArmorSkill;
     }
 
     void SetMediumArmorSkill(float value)
     {
-        MA_SKILL_START = std::clamp(value, 0.0f, 100.0f);
+        kMediumArmorSkill = std::clamp(value, 0.0f, 100.0f);
     }
 
     void SyncSkillFromMenuQue()
@@ -112,7 +102,7 @@ namespace MediumArmor
         TESForm* globalForm =  LookupFormByID(fullID);
         g_mediumArmorGlobal = OBLIVION_CAST(globalForm, TESForm, TESGlobal);
         if (!g_mediumArmorGlobal) return;
-        MA_SKILL_START = g_mediumArmorGlobal->data;
+        kMediumArmorSkill = g_mediumArmorGlobal->data;
     }
 
     // ════════════════════════════════════════════════════════════════════════════
@@ -213,68 +203,6 @@ namespace MediumArmor
         if (skill >= 50.0f)  return 2;  // Journeyman
         if (skill >= 25.0f)  return 1;  // Apprentice
         return 0;                        // Novice
-    }
-
-    void LoadConfig()
-    {
-        std::ifstream file("Data\\OBSE\\Plugins\\MediumArmor\\Config.ini");
-        if (!file.is_open())
-        {
-            _MESSAGE("Config.ini not found");
-            return;
-        }
-
-        std::string line;
-        enum Section { NONE, CONFIG, MATERIALS } section = NONE;
-
-        while (std::getline(file, line))
-        {
-            if (line.empty() || line[0] == ';')
-                continue;
-
-            if (line[0] == '[')
-            {
-                if (line == "[Config]") section = CONFIG;
-                else if (line == "[Materials]") section = MATERIALS;
-                else section = NONE;
-                continue;
-            }
-
-            std::stringstream ss(line);
-
-            if (section == CONFIG)
-            {
-                std::string key, value;
-
-                std::getline(ss, key, ',');
-                std::getline(ss, value);
-
-                float f = std::stof(value);
-
-                auto it = configMap.find(key);
-                if (it != configMap.end())
-                {
-                    *it->second = f;
-                }
-            }
-            else if (section == MATERIALS)
-            {
-                MA_MATERIALS.clear();
-
-                std::string material;
-
-                while (std::getline(ss, material, ','))
-                {
-                    boost::algorithm::trim(material);
-                    boost::algorithm::to_lower(material);
-
-                    if (!material.empty())
-                    {
-                        MA_MATERIALS.push_back(material);
-                    }
-                }
-            }
-        }
     }
 
 }  // namespace MediumArmorPlugin
