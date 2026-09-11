@@ -41,7 +41,8 @@ namespace MediumArmor
 
     bool IsMediumArmorMaterial(TESForm* form)
     {
-        std::string editorID = EditorIDMapper::ReverseLookup(form->refID);
+        const char* id = EditorIDMapper::ReverseLookup(form->refID);
+        std::string editorID = id ? id : "";
 
         if (editorID.empty())
             editorID = form->GetEditorName();
@@ -99,7 +100,7 @@ namespace MediumArmor
             return;
 
         UInt32 fullID = (modIndex << 24) | 0xED8;
-        TESForm* globalForm =  LookupFormByID(fullID);
+        TESForm* globalForm = LookupFormByID(fullID);
         g_mediumArmorGlobal = OBLIVION_CAST(globalForm, TESForm, TESGlobal);
         if (!g_mediumArmorGlobal) return;
         kMediumArmorSkill = g_mediumArmorGlobal->data;
