@@ -41,11 +41,19 @@ namespace MediumArmor
 
     bool IsMediumArmorMaterial(TESForm* form)
     {
+        if (!form)
+            return false;
+
         const char* id = EditorIDMapper::ReverseLookup(form->refID);
         std::string editorID = id ? id : "";
 
         if (editorID.empty())
-            editorID = form->GetEditorName();
+        {
+            const char* editorName = form->GetEditorName();
+
+            if (editorName)
+                editorID = editorName;
+        }
 
         if (editorID.empty())
             return false;
