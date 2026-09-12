@@ -18,6 +18,13 @@ jobs:
           repository: llde/xOBSE
           ref: master
 
+      - name: Checkout boost
+        uses: actions/checkout@v4
+        with:
+          repository: boostorg/boost
+          ref: master
+          path: boost_1_92_0
+
       - name: Checkout EditorIDMapper
         uses: actions/checkout@v4
         with:
