@@ -21,14 +21,14 @@ jobs:
       - name: Checkout EditorIDMapper
         uses: actions/checkout@v4
         with:
-          repository: googlepox/EditorIDMapper
+          repository: EditorIDMapper
           ref: main
           path: EditorIDMapper
 
       - name: Checkout OBSEKeywords
         uses: actions/checkout@v4
         with:
-          repository: googlepox/OBSEKeywords
+          repository: OBSEKeywords
           ref: main
           path: OBSEKeywords
 
