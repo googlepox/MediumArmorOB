@@ -23,12 +23,12 @@ jobs:
         with:
           repository: EditorIDMapper
           ref: main
-          path: EditorIDMapper
+          path: googlepox/EditorIDMapper
 
       - name: Checkout OBSEKeywords
         uses: actions/checkout@v4
         with:
-          repository: OBSEKeywords
+          repository: googlepox/OBSEKeywords
           ref: main
           path: OBSEKeywords
 
